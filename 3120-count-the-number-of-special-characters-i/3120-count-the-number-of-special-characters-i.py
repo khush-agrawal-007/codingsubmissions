@@ -1,20 +1,14 @@
 class Solution:
     def numberOfSpecialChars(self, word: str) -> int:
-        freq = {}
+        res = [0] * 26
 
-        for ch in word:
-            freq[ch] = freq.get(ch, 0) + 1
+        for c in word:
+            if 'a' <= c <= 'z':
+                res[ord(c) - ord('a')] |= 1
+            else:
+                res[ord(c) - ord('A')] |= 2
 
-        count = 0
-
-        for i in range(26):
-            lower = chr(ord('a') + i)
-            upper = chr(ord('A') + i)
-
-            if freq.get(lower, 0) > 0 and freq.get(upper, 0) > 0:
-                count += 1
-
-        return count
+        return sum(x == 3 for x in res)
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
